@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log File Viewer</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left; /* Align text to the left */
+        }
+        th {
+            background-color: #f2f2f2; /* Light gray background for headers */
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ filename }}</h1>
+
+    {% for row in data %}
+        {% if row.error %}
+            <p style="color: red;">{{ row.error }}</p>  {% else %}
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Header</th><td>{{ row.header or 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Vehicle ID</th><td>{{ row.vehicle_id or 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Registration Number</th><td>{{ row.registration_number or 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th>IMEI</th><td>{{ row.imei or 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Version</th><td>{{ row.version or 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Protocol</th><td>{{ row.protocol or 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Latitude</th><td>{{ row.latitude or 'N/A' }} {{ row.latitude_direction or 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Longitude</th><td>{{ row.longitude or 'N/A' }} {{ row.longitude_direction or 'N/A' }}</td>
+                    </tr>
+                    </tbody>
+            </table>
+            <br>  {% endif %}
+    {% endfor %}
+
+</body>
+</html>

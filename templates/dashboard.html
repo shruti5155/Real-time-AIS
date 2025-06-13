@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AIS Dashboard</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: red;
+            margin-bottom: 20px;
+        }
+
+        .emergency-link {
+            display: block;
+            text-align: center;
+            padding: 10px 20px;
+            font-weight: bold;
+            background-color: #b3e1b5;
+            color: #060505;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+            border: 1px solid #b3e1b5;
+        }
+
+        .emergency-link:hover {
+            background-color: #a5d6a7;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0 auto;
+            table-layout: fixed;
+        }
+
+        th, td {
+            border: none;
+            padding: 10px;
+            text-align: left;
+            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 12px;
+            border: none;
+        }
+
+        tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        .log-file-link {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 5px 0;
+        }
+
+        .log-file-link:hover {
+            color: #388e3c;
+            text-decoration: underline;
+        }
+
+        /* Stylish Download Button */
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #2e7d32;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background-color: #1b5e20;
+            transform: scale(1.05);
+        }
+
+        .download-btn svg {
+            margin-right: 8px;
+        }
+
+        a.logout {
+            display: block;
+            width: 130px;
+            padding: 12px;
+            margin: 30px auto;
+            text-align: center;
+            background-color: #b3e1b5;
+            color: black;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+            text-decoration: none;
+        }
+
+        a.logout:hover {
+            background-color: #a5d6a7;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>AIS Server</h1>
+    <h2>Exist Logs</h2>
+
+    <a class="emergency-link" href="/dashboard2">Click Here for Emergency Server Logs</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>IMEI</th>
+                <th>Log Files</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in all_logs %}
+            <tr>
+                <td>{{ log.imei }}</td>
+                <td><a class="log-file-link" href="{{ url_for('view_ais_file', filename=log.filename) }}">{{ log.filename }}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    
+    <a href="/db" class="download-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C12.5523 2 13 2.44772 13 3V14.5858L16.2929 11.2929C16.6834 10.9024 17.3166 10.9024 17.7071 11.2929C18.0976 11.6834 18.0976 12.3166 17.7071 12.7071L12.7071 17.7071C12.3166 18.0976 11.6834 18.0976 11.2929 17.7071L6.29289 12.7071C5.90237 12.3166 5.90237 11.6834 6.29289 11.2929C6.68342 10.9024 7.31658 10.9024 7.70711 11.2929L11 14.5858V3C11 2.44772 11.4477 2 12 2ZM4 20C4 19.4477 4.44772 19 5 19H19C19.5523 19 20 19.4477 20 20C20 20.5523 19.5523 21 19 21H5C4.44772 21 4 20.5523 4 20Z" fill="white"/>
+        </svg>
+        Download AIS Logs
+    </a>
+
+    <a href="/" class="logout">Logout</a>
+</body>
+</html>

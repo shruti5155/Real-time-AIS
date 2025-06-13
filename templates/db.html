@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Logs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #2e7d32; 
+        }
+        h3 {
+            color:  #1b5e20; 
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #e8f5e9; 
+            margin: 10px auto;
+            padding: 15px;
+            width: 50%;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+        li:hover {
+            background: #c8e6c9; 
+            transform: scale(1.05);
+        }
+        a {
+            text-decoration: none;
+            color: #1b5e20;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        a:hover {
+            color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Download AIS Logs</h1>
+    <h3>Filename format: IMEI_DDMMYYYY.csv</h3>
+    <ul>
+        {% for file in log_files %}
+            <li><a href="{{ url_for('download_file', filename=file) }}" download>📂 {{ file }}</a></li>
+        {% endfor %}
+    </ul>
+    <footer>
+        AIS Logs Download Server
+    </footer>
+</body>
+</html>

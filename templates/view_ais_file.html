@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIS Server</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e1f5dc; /* Light green background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            color:#4CAF50; /* Teal heading color */
+        }
+
+        h2 {
+            font-size: 24px;
+            text-align: center;
+            color:#4CAF50; /* Slightly darker teal */
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            font-size: 14px;
+            table-layout: fixed;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            line-height: 1.5;
+            vertical-align: top;
+            border: 1px solid #ddd;
+            overflow-wrap: break-word;
+        }
+
+        th {
+            background-color: #81c784; /* Slightly darker green for header */
+            color: #fff;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f1f8e9; /* Lighter green for even rows */
+        }
+
+        .log-content {
+            background: #000000;
+            border: 1px solid #81c784; /* Green border for log content */
+            border-radius: 5px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 14px;
+            color: #ffffff;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+
+        .map-container {
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid #c8e6c9; /* Light green border for map */
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+            border-radius: 10px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .left-column, .right-column {
+            flex: 1 1 45%;
+            min-width: 300px;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #4CAF50;
+            background: #eaf6f6;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link a:hover {
+            background:   #2f5931;
+            color: #ffffff;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #999;
+        }
+
+
+
+       
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AIS Server</h1>
+
+        
+
+        <h3>Vehicle Status Report</h3>
+        <div class="row">
+            <div class="left-column">
+              <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+
+
+
+
+
+
+                    <!--
+
+pvt_template=['date_time','header','vender_id','firmware_version','packet_type','alert_ID','packet_Status','imei_no','VRN','GPS_fix','date','time','latitude','latitude_dir','logitude','logitude_dir','Speed','Heading','No_of_Sat','Altitude','PDOP','HDOP','Network_Op','Ignition','Main_Power_Status','Main_Input','Internal_Battery_Vol','Emergency_Status','Tamper_Alert','GSM_Signal_Strength','MCC ','MNC','LAC','Cell_ID','Cell_ID_1st','LAC_1st ','GSM_Signal_Strength_1st','Cell_ID_2nd','LAC_2nd','Cell_ID_3rd','LAC_3rd','GSM_Signal_Strength_3rd','Cell_ID_4th','LAC_4th','GSM_Signal_Strength_4th','Digital_Input_Status','Digital_Output_Status','Frame_Num','Checksum','end_char']
+
+lgn_template = ['date_time','heder','VRN','imei_no','firmware_version','Protocol_Version','Latitude',' Longitude']-->
+
+
+ 
+                    <tr><td>PACKET TYPE</td><td>{{detected_packet}}</td></tr>
+                    {% if detected_packet == 'PVT' %}
+                        <tr><td>Header</td><td>{{ header }}</td></tr>
+                        <tr><td>Vendor ID</td><td>{{ vender_id }}</td></tr>
+                        <tr><td>Firmware Version</td><td>{{ firmware_version }}</td></tr>
+                        <tr><td>Packet Type</td><td>{{ packet_type }}</td></tr>
+                        <tr><td>Packet History</td><td>{{ packet_Status }}</td></tr>
+                        <tr><td>IMEI</td><td>{{ imei_no }}</td></tr>
+                        <tr><td>VRN</td><td>{{ VRN }}</td></tr>
+                        <tr><td>GPS Fix</td><td>{{ GPS_fix }}</td></tr>
+                        <tr><td>Date</td><td>{{ date }}</td></tr>
+                        <tr><td>Time</td><td>{{ time }}</td></tr>
+                        <tr><td>Latitude</td><td>{{ latitude }} {{ latitude_dir }}</td></tr>
+                        <tr><td>Longitude</td><td>{{ logitude }} {{ logitude_dir }}</td></tr>
+                        <tr><td>Speed</td><td>{{ Speed }}</td></tr>
+                        <tr><td>Internal Battery Vol</td><td>{{ Internal_Battery_Vol }}</td></tr>
+                        <tr><td>Tamper Alert</td><td>{{ Tamper_Alert }}</td></tr>
+                        <tr><td>GSM Signal Strength</td><td>{{ GSM_Signal_Strength }}</td></tr>
+                    {% elif detected_packet == 'LGN' %}
+                        <tr><td>Header</td><td>{{ header }}</td></tr>
+                        <tr><td>Vehicle Reg No</td><td>{{ VRN }}</td></tr>
+                        <tr><td>IMEI</td><td>{{ imei_no }}</td></tr>
+                        <tr><td>Firmware Version</td><td>{{ firmware_version }}</td></tr>
+                        <tr><td>Protocol Version</td><td>{{ Protocol_Version }}</td></tr>
+                        <tr><td>Latitude</td><td>{{ Latitude }}</td></tr>
+                        <tr><td>Longitude</td><td>{{ Longitude }}</td></tr>
+
+<!-- health_template = ['date_time','start_char','header','vender_id','firmware_version','imei_no','Battery_percentage','Low_battery','Memory_percen','Data_update_rate_when_ignition_ON','Data_update_rate_when_ignition_OFF','Digital_I/o_status','Analog_I/o_status'] -->
+
+
+                    {% elif detected_packet == 'HEL' %}
+                        <tr><td>Header</td><td>{{ header }}</td></tr>
+                        <tr><td>Vendor ID</td><td>{{ vender_id }}</td></tr>
+                        <tr><td>Firmware Version</td><td>{{ firmware_version }}</td></tr>
+                        <tr><td>IMEI</td><td>{{ imei_no }}</td></tr>
+                        <tr><td>Battery Percentage</td><td>{{ Battery_percentage }}</td></tr>
+                        <tr><td>Low Battery</td><td>{{ Low_battery }}</td></tr>
+                        <tr><td>Memory Percentage</td><td>{{ Memory_percen }}</td></tr>
+                        <tr><td>Data Update Rate (Ignition ON)</td><td>{{ Data_ON }}</td></tr>
+                        <tr><td>Data Update Rate (Ignition OFF)</td><td>{{ Data_update_rate_when_ignition_OFF }}</td></tr>
+                        <tr><td>Digital I/O Status</td><td>{{ Digital_I_o_status }}</td></tr>
+                        <tr><td>Analog I/O Status</td><td>{{ Analog_I_o_status }}</td></tr>
+
+                    
+                    {% endif %}
+
+                </tbody>
+            </table>
+            </div>
+
+            <div class="right-column">
+                <div class="map-container">
+                    <h2>Geolocation</h2>
+                    <iframe loading="lazy" allowfullscreen src="https://www.google.com/maps?q=18.523386,73.816253&output=embed"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <h3>Log Content:</h3>
+        <div class="log-content">{{ log_content }}</div>
+    </div>
+    <div class="back-link">
+        <a href="/dashboard">Back to AIS Logs</a>
+    </div>
+    <footer>
+        <p>&copy; 2025 AIS Server. All rights reserved. </p>
+    </footer>
+</body>
+</html>
